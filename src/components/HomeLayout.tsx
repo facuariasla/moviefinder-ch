@@ -3,12 +3,12 @@ import styled, { css } from "styled-components";
 import AllMoviesContainer from './AllMoviesContainer';
 import Header from './Header';
 
-const LayoutContainer = styled.div`
+export const LayoutContainer = styled.div`
   display: flex;
   align-content: center;
   justify-content: center;
 `
-const StyledLayout = styled.div`
+export const StyledLayout = styled.div`
  background-color: gray;
  width: 1920px;
  min-height: 100vh;

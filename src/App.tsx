@@ -7,6 +7,7 @@ import { Layout } from "antd";
 import HomeLayout from "./components/HomeLayout";
 import Home from "./pages/Home";
 import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+import TheMovie from "./pages/TheMovie";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <HashRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/movie/:id" element={<TheMovie />} />
         </Routes>
       </HashRouter>
     </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { css } from "styled-components";
 import { Link } from 'react-router-dom'
+import logo from '../../public/popcorn-logo.svg'
 
 const HeaderContainer = styled.header`
   background-color: tomato;
@@ -16,7 +17,9 @@ const Header:React.FC = () => {
   return (
     <HeaderContainer>
       <nav>
-        <Link to='/'>LOGO</Link>
+        <Link to='/'>
+          Logo
+        </Link>
       </nav>
       <nav>BOTONES</nav>
     </HeaderContainer>

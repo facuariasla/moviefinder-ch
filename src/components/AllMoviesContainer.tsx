@@ -171,7 +171,14 @@ const AllMoviesContainer: React.FC = () => {
         {second5Movies ? (
           <span
             onClick={() => setSeeMore(true)}
-            style={{ display: `${seeMore? 'none':'flex'}`, cursor:'pointer' }}
+            style={{
+              display: `${seeMore ? "none" : "flex"}`,
+              cursor: "pointer",
+              alignSelf: "center",
+              fontSize:'20px',
+              fontWeight:'500'
+
+            }}
           >
             SEE MORE...{" "}
           </span>

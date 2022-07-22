@@ -3,6 +3,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { StarOutlined, StarFilled, StarTwoTone } from "@ant-design/icons";
 import type { MovieQuery, MovieSearch } from "../Types";
+import { Link } from "react-router-dom";
 
 const StyledCard = styled.div`
   /* border: 2px solid red; */
@@ -54,6 +55,7 @@ const DescriptionContainer = styled.div`
 
 const MovieCard = (props: { movieData: MovieSearch }) => {
   return (
+    <Link to={`/movie/${props.movieData.imdbID}`}>
     <StyledCard>
       <ImgContainer>
         <img
@@ -73,6 +75,7 @@ const MovieCard = (props: { movieData: MovieSearch }) => {
         </p>
       </DescriptionContainer>
     </StyledCard>
+    </Link>
   );
 };
 
