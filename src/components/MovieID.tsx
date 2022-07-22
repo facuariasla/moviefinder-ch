@@ -106,7 +106,7 @@ const MovieID = (props: { movieData: MovieQuery }) => {
           <h1 className='deskTitle'>{props.movieData.Title}</h1>
           <RateContainer>
             <p><strong>Rating imdb:</strong> {props.movieData.imdbRating}/10</p>
-            <Rate allowHalf defaultValue={ratingValue(props.movieData.imdbRating)} />
+            <Rate disabled allowHalf defaultValue={ratingValue(props.movieData.imdbRating)} />
           </RateContainer>
           <p><strong>Year:</strong> {props.movieData.Year}</p>
           <p><strong>Rated:</strong> {props.movieData.Rated}</p>

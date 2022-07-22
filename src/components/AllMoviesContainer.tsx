@@ -13,7 +13,8 @@ const BodyHomeContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 1rem;
+  padding: 0 2rem;
+  padding-bottom: 2rem;
 `;
 
 const StyledSearchContainer = styled.div`
@@ -36,10 +37,13 @@ const StyledSearchContainer = styled.div`
 const StyledSearcher = styled(Search)`
   max-width: 600px;
   width: 100%;
+  color: #fff;
   input,
   button {
     height: 50px;
     font-size: 20px;
+    color: #fff;
+
   }
   span{
     font-size: 20px;
