@@ -1,16 +1,19 @@
-import { Spin } from "antd";
+import { FilterOutlined } from "@ant-design/icons";
+import { Spin, Button, Modal, Pagination, PaginationProps } from "antd";
 import Search from "antd/lib/input/Search";
 import React, { useEffect, useState } from "react";
 
 import styled, { css } from "styled-components";
 import { MovieQuery, MovieSearch, SearchData } from "../Types";
 import MovieCard from "./MovieCard";
+import FilterModal from "./subcomponents/FilterModal";
 
 const BodyHomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 1rem;
 `;
 
 const StyledMovieContainer = styled.div`
@@ -31,6 +34,12 @@ const StyledSearchContainer = styled.div`
   p {
     margin: 0;
   }
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
 `;
 
 const StyledSearcher = styled(Search)`
@@ -41,14 +50,17 @@ const StyledSearcher = styled(Search)`
     height: 50px;
     font-size: 18px;
   }
+  input {
+    border-radius: 10px;
+  }
 `;
 
 const AllMoviesContainer: React.FC = () => {
   const [movies, setMovies] = useState<SearchData>();
   const [first5Movies, setFirst5Movies] = useState<Array<Object>>();
-
   const [movieSearched, setMovieSearched] = useState<String>();
   const [loading, setLoading] = useState(false);
+  const [pages, setPages] = useState<number>();
 
   const onSearch = (value: string) => {
     setLoading(true);
@@ -64,16 +76,23 @@ const AllMoviesContainer: React.FC = () => {
       // `https://www.omdbapi.com/?s=Batman&page=2&apikey=${import.meta.env.VITE_OMDB_KEY}`
       try {
         const res = await fetch(
-          `https://www.omdbapi.com/?s=${movieSearched}&page=1&Type=movie&apikey=${
+          `https://www.omdbapi.com/?s=${movieSearched}&apikey=${
             import.meta.env.VITE_OMDB_KEY
-          }`
+          }&Type=&page=1&year=`
         );
         const data = await res.json();
         console.log(data);
         setMovies(data);
         if (data.Response === "True") {
-          let moviesSlice = data.Search.slice(0,5)
-          setFirst5Movies(moviesSlice);
+          if (data.Search.length > 5) {
+            let moviesSlice = data.Search.slice(0, 5);
+            setFirst5Movies(moviesSlice);
+            let pagesCount = parseInt(data.totalResults);
+            console.log(pagesCount);
+            setPages(pagesCount);
+          } else {
+            setFirst5Movies(data.Search);
+          }
         }
         setLoading(false);
       } catch (error) {
@@ -87,8 +106,14 @@ const AllMoviesContainer: React.FC = () => {
   return (
     <BodyHomeContainer>
       <StyledSearchContainer>
-        <StyledSearcher placeholder="Search..." onSearch={onSearch} />
+        <div>
+          <StyledSearcher placeholder="Search..." onSearch={onSearch} />
 
+          {/* <FilterOutlined
+            style={{ fontSize: "20px", color: "#fff", cursor: "pointer" }}
+          /> */}
+          <FilterModal />
+        </div>
         <div>
           {movies ? (
             <p>
@@ -114,9 +139,11 @@ const AllMoviesContainer: React.FC = () => {
         ) : (
           <span>ALGUN MENSAJE O IMAGEN DIVERTIDA NO SE</span>
         )}
-
-
       </StyledMovieContainer>
+
+      {pages && (
+        <Pagination defaultCurrent={1} total={pages} showSizeChanger={false}/>
+      )}
     </BodyHomeContainer>
   );
 };
