@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { LayoutContainer, StyledLayout } from '../components/HomeLayout'
-import notfound from '../../public/notfound.png'
-const NotFinded = () => {
+import notfound from '../../public/notfound.png';
+
+const NotFinded:React.FC = () => {
   return (
     <LayoutContainer>
       <StyledLayout>
