@@ -7,6 +7,7 @@ import styled, { css } from "styled-components";
 import { MovieQuery, MovieSearch, SearchData } from "../Types";
 import MovieCard from "./MovieCard";
 import FilterModal from "./subcomponents/FilterModal";
+const OMDB_TOKEN = import.meta.env.VITE_OMDB_KEY;
 
 const BodyHomeContainer = styled.div`
   display: flex;
@@ -120,12 +121,9 @@ const AllMoviesContainer: React.FC = () => {
     // import.meta.env.VITE_TEST_VAR
     const query = async () => {
       // https://www.omdbapi.com/?s=Batman&page=2&y=2013&Type=movie&apikey=30334a6d
-      // `https://www.omdbapi.com/?s=Batman&page=2&apikey=${import.meta.env.VITE_OMDB_KEY}`
       try {
         const res = await fetch(
-          `https://www.omdbapi.com/?s=${movieSearched}&apikey=${
-            import.meta.env.VITE_OMDB_KEY
-          }&Type=&page=${actualPage}&year=`
+          `https://www.omdbapi.com/?s=${movieSearched}&apikey=${OMDB_TOKEN}&Type=&page=${actualPage}&year=`
         );
         const data = await res.json();
         console.log(data);
