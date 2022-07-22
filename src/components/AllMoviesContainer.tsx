@@ -16,15 +16,6 @@ const BodyHomeContainer = styled.div`
   padding-bottom: 1rem;
 `;
 
-const StyledMovieContainer = styled.div`
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  grid-template-rows: auto;
-  padding: 1rem;
-  gap: 20px;
-  justify-items: center;
-`;
 const StyledSearchContainer = styled.div`
   width: 100%;
   padding: 1rem;
@@ -55,17 +46,46 @@ const StyledSearcher = styled(Search)`
   }
 `;
 
+const StyledMovieContainer = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  /* grid-template-columns: repeat(5, 320px); */
+  grid-template-rows: auto;
+  padding: 1rem;
+  gap: 20px;
+  justify-items: center;
+  @media screen and (min-width: 1550px) {
+    padding: 0 200px;
+  }
+`;
+
 const AllMoviesContainer: React.FC = () => {
   const [movies, setMovies] = useState<SearchData>();
   const [first5Movies, setFirst5Movies] = useState<Array<Object>>();
+  const [second5Movies, setSecond5Movies] = useState<Array<Object>>();
+
   const [movieSearched, setMovieSearched] = useState<String>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [pages, setPages] = useState<number>();
+  const [actualPage, setActualPage] = useState<number>(1);
+
+  const [seeMore, setSeeMore] = useState<boolean>(false);
 
   const onSearch = (value: string) => {
     setLoading(true);
+    setFirst5Movies([]);
+    setSecond5Movies([]);
+    setPages(0);
+    setSeeMore(false);
     console.log(value);
     setMovieSearched(value);
+  };
+
+  const paginationChange = (page: any) => {
+    console.log(`page ${page}`);
+    setSeeMore(false);
+    setActualPage(page);
   };
 
   // Request de 1 pelicula
@@ -78,15 +98,18 @@ const AllMoviesContainer: React.FC = () => {
         const res = await fetch(
           `https://www.omdbapi.com/?s=${movieSearched}&apikey=${
             import.meta.env.VITE_OMDB_KEY
-          }&Type=&page=1&year=`
+          }&Type=&page=${actualPage}&year=`
         );
         const data = await res.json();
         console.log(data);
         setMovies(data);
         if (data.Response === "True") {
           if (data.Search.length > 5) {
-            let moviesSlice = data.Search.slice(0, 5);
-            setFirst5Movies(moviesSlice);
+            let firstPart = data.Search.slice(0, 5);
+            let secondPart = data.Search.slice(5, 10);
+            setFirst5Movies(firstPart);
+            setSecond5Movies(secondPart);
+
             let pagesCount = parseInt(data.totalResults);
             console.log(pagesCount);
             setPages(pagesCount);
@@ -101,7 +124,7 @@ const AllMoviesContainer: React.FC = () => {
       }
     };
     if (movieSearched) query();
-  }, [movieSearched]);
+  }, [movieSearched, actualPage]);
 
   return (
     <BodyHomeContainer>
@@ -139,10 +162,33 @@ const AllMoviesContainer: React.FC = () => {
         ) : (
           <span>ALGUN MENSAJE O IMAGEN DIVERTIDA NO SE</span>
         )}
+        {seeMore
+          ? second5Movies?.map((movie: any) => (
+              <MovieCard key={movie.imdbID} movieData={movie} />
+            ))
+          : ""}
+
+        {second5Movies ? (
+          <span
+            onClick={() => setSeeMore(true)}
+            style={{ display: `${seeMore? 'none':'flex'}`, cursor:'pointer' }}
+          >
+            SEE MORE...{" "}
+          </span>
+        ) : (
+          ""
+        )}
       </StyledMovieContainer>
 
-      {pages && (
-        <Pagination defaultCurrent={1} total={pages} showSizeChanger={false}/>
+      {pages ? (
+        <Pagination
+          defaultCurrent={1}
+          total={pages}
+          showSizeChanger={false}
+          onChange={paginationChange}
+        />
+      ) : (
+        ""
       )}
     </BodyHomeContainer>
   );
