@@ -34,15 +34,19 @@ const StyledSearchContainer = styled.div`
 `;
 
 const StyledSearcher = styled(Search)`
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   input,
   button {
     height: 50px;
-    font-size: 18px;
+    font-size: 20px;
+  }
+  span{
+    font-size: 20px;
   }
   input {
     border-radius: 10px;
+    background-color: #ffffff5f;
   }
 `;
 
@@ -60,10 +64,32 @@ const StyledMovieContainer = styled.div`
   }
 `;
 
+
+export const StyledSpin = styled(Spin)`
+.ant-spin-dot-item {
+  background-color: #E21221;
+}
+`; 
+
+const StyledPagination = styled(Pagination)`
+  a{
+    color: #fff;
+  }
+  li{
+    background: #E21221;
+  }
+  .ant-pagination-item-link{
+    background: #E21221;
+    color: #fff;
+
+  }
+`;
+
+
 const AllMoviesContainer: React.FC = () => {
   const [movies, setMovies] = useState<SearchData>();
-  const [first5Movies, setFirst5Movies] = useState<Array<Object>>();
-  const [second5Movies, setSecond5Movies] = useState<Array<Object>>();
+  const [first5Movies, setFirst5Movies] = useState<Array<Object>>([]);
+  const [second5Movies, setSecond5Movies] = useState<Array<Object>>([]);
 
   const [movieSearched, setMovieSearched] = useState<String>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -73,11 +99,12 @@ const AllMoviesContainer: React.FC = () => {
   const [seeMore, setSeeMore] = useState<boolean>(false);
 
   const onSearch = (value: string) => {
-    setLoading(true);
-    setFirst5Movies([]);
-    setSecond5Movies([]);
-    setPages(0);
-    setSeeMore(false);
+    if(value != movieSearched){
+      setLoading(true);
+      setFirst5Movies([]);
+      setSecond5Movies([]);
+      setPages(0);
+    }
     console.log(value);
     setMovieSearched(value);
   };
@@ -109,7 +136,7 @@ const AllMoviesContainer: React.FC = () => {
             let secondPart = data.Search.slice(5, 10);
             setFirst5Movies(firstPart);
             setSecond5Movies(secondPart);
-
+            setSeeMore(false)
             let pagesCount = parseInt(data.totalResults);
             console.log(pagesCount);
             setPages(pagesCount);
@@ -158,9 +185,9 @@ const AllMoviesContainer: React.FC = () => {
             <span>{movies?.Error}</span>
           )
         ) : loading ? (
-          <Spin />
+          <StyledSpin size='large'/>
         ) : (
-          <span>ALGUN MENSAJE O IMAGEN DIVERTIDA NO SE</span>
+          ''
         )}
         {seeMore
           ? second5Movies?.map((movie: any) => (
@@ -168,7 +195,7 @@ const AllMoviesContainer: React.FC = () => {
             ))
           : ""}
 
-        {second5Movies ? (
+        {second5Movies?.length >0 ? (
           <span
             onClick={() => setSeeMore(true)}
             style={{
@@ -188,7 +215,7 @@ const AllMoviesContainer: React.FC = () => {
       </StyledMovieContainer>
 
       {pages ? (
-        <Pagination
+        <StyledPagination
           defaultCurrent={1}
           total={pages}
           showSizeChanger={false}

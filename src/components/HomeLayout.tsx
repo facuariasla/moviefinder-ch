@@ -9,7 +9,6 @@ export const LayoutContainer = styled.div`
   justify-content: center;
 `
 export const StyledLayout = styled.div`
- background-color: gray;
  width: 1920px;
  min-height: 100vh;
 `

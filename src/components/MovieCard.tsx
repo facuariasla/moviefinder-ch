@@ -13,7 +13,12 @@ const StyledCard = styled.div`
   max-height: 350px;
   overflow-y: hidden;
   position: relative;
+  border-radius: 25px;
   cursor: pointer;
+  transition: all .2s;
+  &:hover, &:active{
+    border-radius: 0px;
+  }
 `;
 
 const ImgContainer = styled.div`
