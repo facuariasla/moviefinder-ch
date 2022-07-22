@@ -4,8 +4,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+const StyledDrawer = styled(Drawer)`
+.ant-drawer-wrapper-body{
+  background-color: gray;
+}
+`
+
 const StyledDrawerContent = styled.div`
-  color: black;
+  color: white;
+  font-size: 18px;
+  a{
+    color: #fff;
+    font-weight: 600;
+  }
 `;
 
 const MenuDrawer = () => {
@@ -24,7 +35,7 @@ const MenuDrawer = () => {
         onClick={showDrawer}
         style={{ fontSize: "32px", color: "#E21221" }}
       />
-      <Drawer
+      <StyledDrawer
         title="Menu"
         placement="right"
         onClose={onClose}
@@ -41,7 +52,7 @@ const MenuDrawer = () => {
             <p>Portfolio</p>
           </a>
         </StyledDrawerContent>
-      </Drawer>
+      </StyledDrawer>
     </>
   );
 };

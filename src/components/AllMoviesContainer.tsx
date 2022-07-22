@@ -1,4 +1,4 @@
-import { FilterOutlined } from "@ant-design/icons";
+import { EllipsisOutlined, FilterOutlined } from "@ant-design/icons";
 import { Spin, Button, Modal, Pagination, PaginationProps } from "antd";
 import Search from "antd/lib/input/Search";
 import React, { useEffect, useState } from "react";
@@ -43,9 +43,8 @@ const StyledSearcher = styled(Search)`
     height: 50px;
     font-size: 20px;
     color: #fff;
-
   }
-  span{
+  span {
     font-size: 20px;
   }
   input {
@@ -68,27 +67,24 @@ const StyledMovieContainer = styled.div`
   }
 `;
 
-
 export const StyledSpin = styled(Spin)`
-.ant-spin-dot-item {
-  background-color: #E21221;
-}
-`; 
-
-const StyledPagination = styled(Pagination)`
-  a{
-    color: #fff;
-  }
-  li{
-    background: #E21221;
-  }
-  .ant-pagination-item-link{
-    background: #E21221;
-    color: #fff;
-
+  .ant-spin-dot-item {
+    background-color: #e21221;
   }
 `;
 
+const StyledPagination = styled(Pagination)`
+  a {
+    color: #fff;
+  }
+  li {
+    background: #e21221;
+  }
+  .ant-pagination-item-link {
+    background: #e21221;
+    color: #fff;
+  }
+`;
 
 const AllMoviesContainer: React.FC = () => {
   const [movies, setMovies] = useState<SearchData>();
@@ -103,7 +99,7 @@ const AllMoviesContainer: React.FC = () => {
   const [seeMore, setSeeMore] = useState<boolean>(false);
 
   const onSearch = (value: string) => {
-    if(value != movieSearched){
+    if (value != movieSearched) {
       setLoading(true);
       setFirst5Movies([]);
       setSecond5Movies([]);
@@ -140,7 +136,7 @@ const AllMoviesContainer: React.FC = () => {
             let secondPart = data.Search.slice(5, 10);
             setFirst5Movies(firstPart);
             setSecond5Movies(secondPart);
-            setSeeMore(false)
+            setSeeMore(false);
             let pagesCount = parseInt(data.totalResults);
             console.log(pagesCount);
             setPages(pagesCount);
@@ -189,9 +185,9 @@ const AllMoviesContainer: React.FC = () => {
             <span>{movies?.Error}</span>
           )
         ) : loading ? (
-          <StyledSpin size='large'/>
+          <StyledSpin size="large" />
         ) : (
-          ''
+          ""
         )}
         {seeMore
           ? second5Movies?.map((movie: any) => (
@@ -199,19 +195,18 @@ const AllMoviesContainer: React.FC = () => {
             ))
           : ""}
 
-        {second5Movies?.length >0 ? (
+        {second5Movies?.length > 0 ? (
           <span
             onClick={() => setSeeMore(true)}
             style={{
               display: `${seeMore ? "none" : "flex"}`,
               cursor: "pointer",
               alignSelf: "center",
-              fontSize:'20px',
-              fontWeight:'500'
-
+              fontSize: "20px",
+              fontWeight: "500",
             }}
           >
-            SEE MORE...{" "}
+            See more...
           </span>
         ) : (
           ""
