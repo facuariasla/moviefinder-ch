@@ -1,14 +1,12 @@
 import {
   DeleteOutlined,
-  EllipsisOutlined,
-  FilterOutlined,
 } from "@ant-design/icons";
-import { Spin, Button, Modal, Pagination, PaginationProps } from "antd";
+import { Spin, Pagination } from "antd";
 import Search from "antd/lib/input/Search";
 import React, { useEffect, useState } from "react";
 
-import styled, { css } from "styled-components";
-import { MovieQuery, MovieSearch, SearchData } from "../Types";
+import styled from "styled-components";
+import { MovieQuery, SearchData } from "../Types";
 import MovieCard from "./MovieCard";
 import FilterModal from "./subcomponents/FilterModal";
 const OMDB_TOKEN = import.meta.env.VITE_OMDB_KEY;
@@ -172,10 +170,6 @@ const AllMoviesContainer: React.FC = () => {
       <StyledSearchContainer>
         <div>
           <StyledSearcher placeholder="Search..." onSearch={onSearch} />
-
-          {/* <FilterOutlined
-            style={{ fontSize: "20px", color: "#fff", cursor: "pointer" }}
-          /> */}
           <FilterModal
             setMovieType={setMovieType}
             movieType={movieType}

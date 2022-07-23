@@ -1,12 +1,10 @@
 import {
-  Button,
   DatePicker,
   DatePickerProps,
   Modal,
   Radio,
   RadioChangeEvent,
-  Rate,
-  Space,
+
 } from "antd";
 import React, { useState } from "react";
 import { FilterOutlined } from "@ant-design/icons";
@@ -68,10 +66,7 @@ const FilterModal = (props: { setMovieType: any; setYearMovie: any, movieType:an
             <DatePicker onChange={onChange} picker="year" />
           </div>
         </div>
-        {/* <Rate allowHalf disabled defaultValue={Math.round(Math.random()*5)} />
-        <p>Bla bla ...</p>
-        <p>Bla bla ...</p>
-        <p>Bla bla ...</p> */}
+
       </Modal>
     </>
   );

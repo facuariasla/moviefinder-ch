@@ -1,12 +1,8 @@
-import Card from "antd/lib/card/Card";
-import React from "react";
 import styled, { css } from "styled-components";
-import { StarOutlined, StarFilled, StarTwoTone } from "@ant-design/icons";
-import type { MovieQuery, MovieSearch } from "../Types";
+import type { MovieSearch } from "../Types";
 import { Link } from "react-router-dom";
 
 const StyledCard = styled.div`
-  /* border: 2px solid red; */
   max-width: 300px;
   min-width: 250px;
   min-height: 280px;
@@ -15,8 +11,9 @@ const StyledCard = styled.div`
   position: relative;
   border-radius: 25px;
   cursor: pointer;
-  transition: all .2s;
-  &:hover, &:active{
+  transition: all 0.2s;
+  &:hover,
+  &:active {
     border-radius: 0px;
   }
 `;
@@ -27,12 +24,12 @@ const ImgContainer = styled.div`
     width: 100%;
     object-fit: cover;
     opacity: 0.8;
-    transition: all .3s;
-    &:hover, &:active{
-    opacity: 1;
+    transition: all 0.3s;
+    &:hover,
+    &:active {
+      opacity: 1;
+    }
   }
-  }
-
 `;
 
 const DescriptionContainer = styled.div`
@@ -48,7 +45,7 @@ const DescriptionContainer = styled.div`
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(2.5px);
   -webkit-backdrop-filter: blur(2.5px);
-  p{
+  p {
     margin: 0;
     padding-bottom: 6px;
     text-align: center;
@@ -62,30 +59,28 @@ const DescriptionContainer = styled.div`
   }
 `;
 
-// https://placeimg.com/1040/480/arch
-
 const MovieCard = (props: { movieData: MovieSearch }) => {
   return (
     <Link to={`/movie/${props.movieData.imdbID}`}>
-    <StyledCard>
-      <ImgContainer>
-        <img
-          src={
-            props.movieData.Poster != "N/A"
-              ? props.movieData.Poster
-              : "https://placeimg.com/300/400/animals"
-          }
-        />
-      </ImgContainer>
-      <DescriptionContainer>
-        <h3 className="card_title">{props.movieData.Title}</h3>
-        <p>{props.movieData.Year}</p>
-        <p>
-          {props.movieData.Type.charAt(0).toLocaleUpperCase() +
-            props.movieData.Type.slice(1)}
-        </p>
-      </DescriptionContainer>
-    </StyledCard>
+      <StyledCard>
+        <ImgContainer>
+          <img
+            src={
+              props.movieData.Poster != "N/A"
+                ? props.movieData.Poster
+                : "https://placeimg.com/300/400/animals"
+            }
+          />
+        </ImgContainer>
+        <DescriptionContainer>
+          <h3 className="card_title">{props.movieData.Title}</h3>
+          <p>{props.movieData.Year}</p>
+          <p>
+            {props.movieData.Type.charAt(0).toLocaleUpperCase() +
+              props.movieData.Type.slice(1)}
+          </p>
+        </DescriptionContainer>
+      </StyledCard>
     </Link>
   );
 };
