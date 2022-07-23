@@ -5,7 +5,10 @@ import logoM from "../../public/movie-logo.png";
 import MenuDrawer from "./subcomponents/MenuDrawer";
 
 const HeaderContainer = styled.header`
-  background-color: #ffffff5f;
+  background-color: rgb(25, 25, 25);
+  box-shadow:
+  0px 9px 6px -3px rgba(0, 0, 0, 0.236)
+;
   width: 100%;
   height: 60px;
   display: flex;

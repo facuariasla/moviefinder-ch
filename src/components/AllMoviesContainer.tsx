@@ -75,6 +75,7 @@ export const StyledSpin = styled(Spin)`
 `;
 
 const StyledPagination = styled(Pagination)`
+  padding-top: 2rem;
   a {
     color: #fff;
   }
@@ -99,13 +100,15 @@ const AllMoviesContainer: React.FC = () => {
 
   const [seeMore, setSeeMore] = useState<boolean>(false);
 
+  const [movieType, setMovieType] = useState<string>("");
+  const [yearMovie, setYearMovie] = useState<string>('');
+
   const onSearch = (value: string) => {
-    if (value != movieSearched) {
-      setLoading(true);
-      setFirst5Movies([]);
-      setSecond5Movies([]);
-      setPages(0);
-    }
+    if (value === "") return;
+    setLoading(true);
+    setFirst5Movies([]);
+    setSecond5Movies([]);
+    setPages(0);
     console.log(value);
     setMovieSearched(value);
   };
@@ -123,11 +126,12 @@ const AllMoviesContainer: React.FC = () => {
       // https://www.omdbapi.com/?s=Batman&page=2&y=2013&Type=movie&apikey=30334a6d
       try {
         const res = await fetch(
-          `https://www.omdbapi.com/?s=${movieSearched}&apikey=${OMDB_TOKEN}&Type=&page=${actualPage}&year=`
+          `https://www.omdbapi.com/?s=${movieSearched}&apikey=${OMDB_TOKEN}&Type=${movieType}&page=${actualPage}&y=${yearMovie}`
         );
         const data = await res.json();
         console.log(data);
         setMovies(data);
+        console.log({movieSearched, movieType, actualPage, yearMovie})
         if (data.Response === "True") {
           if (data.Search.length > 5) {
             let firstPart = data.Search.slice(0, 5);
@@ -149,7 +153,7 @@ const AllMoviesContainer: React.FC = () => {
       }
     };
     if (movieSearched) query();
-  }, [movieSearched, actualPage]);
+  }, [movieSearched, actualPage, pages]);
 
   return (
     <BodyHomeContainer>
@@ -160,7 +164,11 @@ const AllMoviesContainer: React.FC = () => {
           {/* <FilterOutlined
             style={{ fontSize: "20px", color: "#fff", cursor: "pointer" }}
           /> */}
-          <FilterModal />
+          <FilterModal
+            setMovieType={setMovieType}
+            movieType={movieType}
+            setYearMovie={setYearMovie}
+          />
         </div>
         <div>
           {movies ? (
