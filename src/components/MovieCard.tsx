@@ -26,7 +26,13 @@ const ImgContainer = styled.div`
   img {
     width: 100%;
     object-fit: cover;
+    opacity: 0.8;
+    transition: all .3s;
+    &:hover, &:active{
+    opacity: 1;
   }
+  }
+
 `;
 
 const DescriptionContainer = styled.div`
