@@ -1,4 +1,8 @@
-import { EllipsisOutlined, FilterOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EllipsisOutlined,
+  FilterOutlined,
+} from "@ant-design/icons";
 import { Spin, Button, Modal, Pagination, PaginationProps } from "antd";
 import Search from "antd/lib/input/Search";
 import React, { useEffect, useState } from "react";
@@ -89,7 +93,7 @@ const StyledPagination = styled(Pagination)`
 `;
 
 const AllMoviesContainer: React.FC = () => {
-  const [movies, setMovies] = useState<SearchData>();
+  const [movies, setMovies] = useState<SearchData | null>();
   const [first5Movies, setFirst5Movies] = useState<Array<Object>>([]);
   const [second5Movies, setSecond5Movies] = useState<Array<Object>>([]);
 
@@ -101,7 +105,7 @@ const AllMoviesContainer: React.FC = () => {
   const [seeMore, setSeeMore] = useState<boolean>(false);
 
   const [movieType, setMovieType] = useState<string>("");
-  const [yearMovie, setYearMovie] = useState<string>('');
+  const [yearMovie, setYearMovie] = useState<string>("");
 
   const onSearch = (value: string) => {
     if (value === "") return;
@@ -131,7 +135,7 @@ const AllMoviesContainer: React.FC = () => {
         const data = await res.json();
         console.log(data);
         setMovies(data);
-        console.log({movieSearched, movieType, actualPage, yearMovie})
+        console.log({ movieSearched, movieType, actualPage, yearMovie });
         if (data.Response === "True") {
           if (data.Search.length > 5) {
             let firstPart = data.Search.slice(0, 5);
@@ -155,6 +159,14 @@ const AllMoviesContainer: React.FC = () => {
     if (movieSearched) query();
   }, [movieSearched, actualPage, pages]);
 
+  const cleanSearch = () => {
+    setFirst5Movies([]);
+    setSecond5Movies([]);
+    setMovies(null);
+    setMovieSearched("");
+    setPages(0);
+  };
+
   return (
     <BodyHomeContainer>
       <StyledSearchContainer>
@@ -172,13 +184,29 @@ const AllMoviesContainer: React.FC = () => {
         </div>
         <div>
           {movies ? (
-            <p>
+            <p style={{fontSize:'16px'}}>
               Total results: {movies?.totalResults ? movies?.totalResults : "0"}
             </p>
           ) : (
             <p>Search a movie!</p>
           )}
         </div>
+        {first5Movies.length > 0 ? (
+          <div
+            onClick={() => cleanSearch()}
+            style={{
+              cursor: "pointer",
+              color: "red",
+              fontSize: "16px",
+              fontWeight: "500",
+              width: '130px'
+            }}
+          >
+            Clean search <DeleteOutlined />
+          </div>
+        ) : (
+          ""
+        )}
       </StyledSearchContainer>
 
       <StyledMovieContainer>
