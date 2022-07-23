@@ -33,7 +33,7 @@ const MenuDrawer = () => {
     <>
       <AlignCenterOutlined
         onClick={showDrawer}
-        style={{ fontSize: "32px", color: "#E21221" }}
+        style={{ fontSize: "42px", color: "#E21221" }}
       />
       <StyledDrawer
         title="Menu"

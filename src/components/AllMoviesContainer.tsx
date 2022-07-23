@@ -182,9 +182,9 @@ const AllMoviesContainer: React.FC = () => {
             setYearMovie={setYearMovie}
           />
         </div>
-        <div>
+        <div style={{fontSize:'16px'}}>
           {movies ? (
-            <p style={{fontSize:'16px'}}>
+            <p >
               Total results: {movies?.totalResults ? movies?.totalResults : "0"}
             </p>
           ) : (
