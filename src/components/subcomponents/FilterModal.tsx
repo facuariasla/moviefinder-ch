@@ -31,12 +31,12 @@ const FilterModal = (props: { setMovieType: any; setYearMovie: any, movieType:an
   };
 
   const selectType = ({ target: { value } }: RadioChangeEvent) => {
-    console.log("radio3 checked", value);
+    // console.log("radio3 checked", value);
     props.setMovieType(value);
   };
 
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(date, dateString);
+    // console.log(date, dateString);
     props.setYearMovie(dateString);
   };
   return (

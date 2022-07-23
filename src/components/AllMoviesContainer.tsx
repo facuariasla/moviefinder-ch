@@ -94,8 +94,8 @@ const StyledPagination = styled(Pagination)`
 
 const AllMoviesContainer: React.FC = () => {
   const [movies, setMovies] = useState<SearchData | null>();
-  const [first5Movies, setFirst5Movies] = useState<Array<Object>>([]);
-  const [second5Movies, setSecond5Movies] = useState<Array<Object>>([]);
+  const [first5Movies, setFirst5Movies] = useState<Array<MovieQuery>>([]);
+  const [second5Movies, setSecond5Movies] = useState<Array<MovieQuery>>([]);
 
   const [movieSearched, setMovieSearched] = useState<String>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -113,12 +113,12 @@ const AllMoviesContainer: React.FC = () => {
     setFirst5Movies([]);
     setSecond5Movies([]);
     setPages(0);
-    console.log(value);
+    // console.log(value);
     setMovieSearched(value);
   };
 
   const paginationChange = (page: any) => {
-    console.log(`page ${page}`);
+    // console.log(`page ${page}`);
     setSeeMore(false);
     setActualPage(page);
   };
@@ -133,7 +133,7 @@ const AllMoviesContainer: React.FC = () => {
           `https://www.omdbapi.com/?s=${movieSearched}&apikey=${OMDB_TOKEN}&Type=${movieType}&page=${actualPage}&y=${yearMovie}`
         );
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         setMovies(data);
         console.log({ movieSearched, movieType, actualPage, yearMovie });
         if (data.Response === "True") {
@@ -144,7 +144,7 @@ const AllMoviesContainer: React.FC = () => {
             setSecond5Movies(secondPart);
             setSeeMore(false);
             let pagesCount = parseInt(data.totalResults);
-            console.log(pagesCount);
+            // console.log(pagesCount);
             setPages(pagesCount);
           } else {
             setFirst5Movies(data.Search);
@@ -212,7 +212,7 @@ const AllMoviesContainer: React.FC = () => {
       <StyledMovieContainer>
         {movies ? (
           movies.Response === "True" ? (
-            first5Movies?.map((movie: any) => (
+            first5Movies?.map((movie: MovieQuery) => (
               <MovieCard key={movie.imdbID} movieData={movie} />
             ))
           ) : (
@@ -224,7 +224,7 @@ const AllMoviesContainer: React.FC = () => {
           ""
         )}
         {seeMore
-          ? second5Movies?.map((movie: any) => (
+          ? second5Movies?.map((movie: MovieQuery) => (
               <MovieCard key={movie.imdbID} movieData={movie} />
             ))
           : ""}

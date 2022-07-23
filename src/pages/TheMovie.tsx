@@ -19,7 +19,7 @@ const TheMovie = () => {
       );
       const data = await res.json();
       setmovieData(data);
-      console.log(data);
+      // console.log(data);
     };
     query();
   }, []);

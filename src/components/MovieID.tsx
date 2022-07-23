@@ -84,8 +84,8 @@ const RateContainer = styled.div`
     padding: 4px 0;
   }
 `;
-const ratingValue = (value: any) => {
-  console.log(parseFloat(value) / 2);
+const ratingValue = (value: string) => {
+  // console.log(parseFloat(value) / 2);
   return parseFloat(value) / 2;
 };
 
