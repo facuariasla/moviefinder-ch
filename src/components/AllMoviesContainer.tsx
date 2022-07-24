@@ -1,6 +1,4 @@
-import {
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import { Spin, Pagination } from "antd";
 import Search from "antd/lib/input/Search";
 import React, { useEffect, useState } from "react";
@@ -40,19 +38,20 @@ const StyledSearchContainer = styled.div`
 const StyledSearcher = styled(Search)`
   max-width: 600px;
   width: 100%;
-  color: #fff;
-  input,
-  button {
+  color: #000;
+  input {
     height: 50px;
     font-size: 20px;
-    color: #fff;
-  }
-  span {
-    font-size: 20px;
-  }
-  input {
+    color: #000;
     border-radius: 10px;
     background-color: #ffffff5f;
+  }
+  .ant-input-group-addon,
+  .ant-input-search-button {
+    height: 60px;
+  }
+  .anticon-search {
+    font-size: 20px;
   }
 `;
 
@@ -169,16 +168,20 @@ const AllMoviesContainer: React.FC = () => {
     <BodyHomeContainer>
       <StyledSearchContainer>
         <div>
-          <StyledSearcher placeholder="Search..." onSearch={onSearch} />
+          <StyledSearcher
+          allowClear
+            placeholder="Search..."
+            onSearch={onSearch}
+          />
           <FilterModal
             setMovieType={setMovieType}
             movieType={movieType}
             setYearMovie={setYearMovie}
           />
         </div>
-        <div style={{fontSize:'16px'}}>
+        <div style={{ fontSize: "16px" }}>
           {movies ? (
-            <p >
+            <p>
               Total results: {movies?.totalResults ? movies?.totalResults : "0"}
             </p>
           ) : (
@@ -193,7 +196,7 @@ const AllMoviesContainer: React.FC = () => {
               color: "red",
               fontSize: "16px",
               fontWeight: "500",
-              width: '130px'
+              width: "130px",
             }}
           >
             Clean search <DeleteOutlined />

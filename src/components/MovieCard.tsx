@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import type { MovieSearch } from "../Types";
 import { Link } from "react-router-dom";
-import popcorn404 from '../assets/popcorn404.svg'
+import popcorna from '../assets/popcorna.svg'
 
 const StyledCard = styled.div`
   max-width: 300px;
@@ -69,7 +69,7 @@ const MovieCard = (props: { movieData: MovieSearch }) => {
             src={
               props.movieData.Poster != "N/A"
                 ? props.movieData.Poster
-                : popcorn404
+                : popcorna
             }
           />
         </ImgContainer>
