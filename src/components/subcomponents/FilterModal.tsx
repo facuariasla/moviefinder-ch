@@ -4,7 +4,6 @@ import {
   Modal,
   Radio,
   RadioChangeEvent,
-
 } from "antd";
 import React, { useState } from "react";
 import { FilterOutlined } from "@ant-design/icons";
@@ -14,18 +13,27 @@ const options = [
   { label: "Series", value: "series" },
   { label: "Episode", value: "episode" },
   { label: "All", value: "" },
-
 ];
 
-const FilterModal = (props: { setMovieType: any; setYearMovie: any, movieType:any }) => {
+const FilterModal = (props: {
+  setMovieType: any;
+  setYearMovie: any;
+  movieType: any;
+}) => {
   const [visible, setVisible] = useState<boolean>(false);
 
   const showModal = () => {
     setVisible(true);
   };
 
-  const hideModal = () => {
+  const okButton = () => {
     setVisible(false);
+  };
+
+  const cancelButton = () => {
+    setVisible(false);
+    props.setMovieType("");
+    props.setYearMovie("");
   };
 
   const selectType = ({ target: { value } }: RadioChangeEvent) => {
@@ -46,8 +54,8 @@ const FilterModal = (props: { setMovieType: any; setYearMovie: any, movieType:an
       <Modal
         title="Filter"
         visible={visible}
-        onOk={hideModal}
-        onCancel={hideModal}
+        onOk={okButton}
+        onCancel={cancelButton}
         okText="Ok"
         cancelText="Cancel"
       >
@@ -63,10 +71,9 @@ const FilterModal = (props: { setMovieType: any; setYearMovie: any, movieType:an
           </div>
           <div>
             <h3>Year</h3>
-            <DatePicker onChange={onChange} picker="year" />
+            <DatePicker onChange={onChange} picker="year" allowClear={true} />
           </div>
         </div>
-
       </Modal>
     </>
   );

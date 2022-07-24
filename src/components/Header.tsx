@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
-import logoM from "../../public/movie-logo.png";
+import logoM from '../assets/movie-logo.png'
 import MenuDrawer from "./subcomponents/MenuDrawer";
 
 const HeaderContainer = styled.header`
