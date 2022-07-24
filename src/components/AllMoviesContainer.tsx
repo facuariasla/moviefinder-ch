@@ -43,8 +43,6 @@ const StyledSearcher = styled(Search)`
     height: 50px;
     font-size: 20px;
     color: #000;
-    border-radius: 10px;
-    background-color: #ffffff5f;
   }
   .ant-input-group-addon,
   .ant-input-search-button {
