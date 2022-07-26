@@ -1,4 +1,4 @@
-# Movie Searcher - Challenge
+# Movie Finder - Challenge
 
 ### Access Link
 https://moviefinder-ch.vercel.app/
